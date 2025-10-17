@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getProductById } from '../../../lib/data';
-import Header from '../../../components/Header';
-import ProductForm from '../../../components/ProductForm';
+import ProductForm from '../../../components/ProductForm.jsx';
 
 export default function EditProduct() {
   const params = useParams();
@@ -29,8 +28,7 @@ export default function EditProduct() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
+      <div className="bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
@@ -45,8 +43,7 @@ export default function EditProduct() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
+      <div className="bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center py-12">
             <div className="text-6xl mb-4">❌</div>
@@ -65,10 +62,8 @@ export default function EditProduct() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-8">
+    <div className="bg-background">
+      <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="mb-8">
           <div className="flex items-center space-x-2 text-sm text-gray-600">
@@ -96,7 +91,7 @@ export default function EditProduct() {
             <ProductForm product={product} isEdit={true} />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

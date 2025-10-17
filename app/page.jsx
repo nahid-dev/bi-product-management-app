@@ -4,10 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { mockProducts, categories, searchProducts, getProductsByCategory } from './lib/data';
-import ProductCard from './components/ProductCard';
-import SearchBar from './components/SearchBar';
-import CategoryFilter from './components/CategoryFilter';
-import Header from './components/Header';
+import ProductCard from './components/ProductCard.jsx';
+import SearchBar from './components/SearchBar.jsx';
+import CategoryFilter from './components/CategoryFilter.jsx';
 
 export default function Home() {
   const [products, setProducts] = useState(mockProducts);
@@ -65,10 +64,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-8">
+    <div className="bg-background">
+      <div className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-dark mb-4">
@@ -141,7 +138,7 @@ export default function Home() {
             ))}
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }

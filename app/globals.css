@@ -33,6 +33,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   min-height: 100vh;
+  display: flex;
+    flex-direction: column;
 }
 
 /* Custom scrollbar */
