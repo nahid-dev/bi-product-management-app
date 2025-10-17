@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Input from './Input.jsx';
+import Textarea from './Textarea.jsx';
+import Select from './Select.jsx';
 
 export default function ProductForm({ product = null, isEdit = false }) {
   const router = useRouter();
@@ -17,11 +20,11 @@ export default function ProductForm({ product = null, isEdit = false }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const categories = [
-    'Electronics',
-    'Clothing',
-    'Accessories',
-    'Food & Beverage',
-    'Home & Office'
+    { value: 'Electronics', label: 'Electronics' },
+    { value: 'Clothing', label: 'Clothing' },
+    { value: 'Accessories', label: 'Accessories' },
+    { value: 'Food & Beverage', label: 'Food & Beverage' },
+    { value: 'Home & Office', label: 'Home & Office' }
   ];
 
   useEffect(() => {
@@ -122,117 +125,67 @@ export default function ProductForm({ product = null, isEdit = false }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Product Name */}
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-dark mb-2">
-          Product Name *
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green focus:border-transparent outline-none transition-all duration-200 ${
-            errors.name ? 'border-red' : 'border-gray-300'
-          }`}
-          placeholder="Enter product name"
-        />
-        {errors.name && (
-          <p className="mt-1 text-sm text-red">{errors.name}</p>
-        )}
-      </div>
+      <Input
+        name="name"
+        label="Product Name"
+        type="text"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Enter product name"
+        error={errors.name}
+        required
+      />
 
       {/* Description */}
-      <div>
-        <label htmlFor="description" className="block text-sm font-medium text-dark mb-2">
-          Description *
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          rows={4}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green focus:border-transparent outline-none transition-all duration-200 resize-none ${
-            errors.description ? 'border-red' : 'border-gray-300'
-          }`}
-          placeholder="Enter product description"
-        />
-        {errors.description && (
-          <p className="mt-1 text-sm text-red">{errors.description}</p>
-        )}
-      </div>
+      <Textarea
+        name="description"
+        label="Description"
+        value={formData.description}
+        onChange={handleChange}
+        placeholder="Enter product description"
+        error={errors.description}
+        required
+        rows={4}
+      />
 
       {/* Price and Category */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="price" className="block text-sm font-medium text-dark mb-2">
-            Price (USD) *
-          </label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            step="0.01"
-            min="0"
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green focus:border-transparent outline-none transition-all duration-200 ${
-              errors.price ? 'border-red' : 'border-gray-300'
-            }`}
-            placeholder="0.00"
-          />
-          {errors.price && (
-            <p className="mt-1 text-sm text-red">{errors.price}</p>
-          )}
-        </div>
+        <Input
+          name="price"
+          label="Price (USD)"
+          type="number"
+          value={formData.price}
+          onChange={handleChange}
+          step="0.01"
+          min="0"
+          placeholder="0.00"
+          error={errors.price}
+          required
+        />
 
-        <div>
-          <label htmlFor="category" className="block text-sm font-medium text-dark mb-2">
-            Category *
-          </label>
-          <select
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green focus:border-transparent outline-none transition-all duration-200 ${
-              errors.category ? 'border-red' : 'border-gray-300'
-            }`}
-          >
-            <option value="">Select a category</option>
-            {categories.map(category => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          {errors.category && (
-            <p className="mt-1 text-sm text-red">{errors.category}</p>
-          )}
-        </div>
+        <Select
+          name="category"
+          label="Category"
+          value={formData.category}
+          onChange={handleChange}
+          options={categories}
+          placeholder="Select a category"
+          error={errors.category}
+          required
+        />
       </div>
 
       {/* Image URL */}
-      <div>
-        <label htmlFor="image" className="block text-sm font-medium text-dark mb-2">
-          Image URL *
-        </label>
-        <input
-          type="url"
-          id="image"
-          name="image"
-          value={formData.image}
-          onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green focus:border-transparent outline-none transition-all duration-200 ${
-            errors.image ? 'border-red' : 'border-gray-300'
-          }`}
-          placeholder="https://example.com/image.jpg"
-        />
-        {errors.image && (
-          <p className="mt-1 text-sm text-red">{errors.image}</p>
-        )}
-      </div>
+      <Input
+        name="image"
+        label="Image URL"
+        type="url"
+        value={formData.image}
+        onChange={handleChange}
+        placeholder="https://example.com/image.jpg"
+        error={errors.image}
+        required
+      />
 
       {/* Stock Status */}
       <div className="flex items-center">

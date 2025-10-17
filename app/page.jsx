@@ -7,6 +7,7 @@ import { mockProducts, categories, searchProducts, getProductsByCategory } from 
 import ProductCard from './components/ProductCard.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import CategoryFilter from './components/CategoryFilter.jsx';
+import { Button } from "../components/ui/button.jsx";
 
 export default function Home() {
   const [products, setProducts] = useState(mockProducts);
@@ -72,31 +73,25 @@ export default function Home() {
             Product Manager
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Discover, manage, and organize your products with our intuitive platform. 
-            Create, edit, and track your inventory with ease.
+            Discover, manage, and organize your products with our intuitive
+            platform. Create, edit, and track your inventory with ease.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link 
-              href="/products/new"
-              className="bg-green text-light px-8 py-3 rounded-lg font-semibold hover:bg-green/90 transition-colors shadow-lg hover:shadow-xl"
-            >
-              Add New Product
-            </Link>
-            <button 
-              onClick={resetFilters}
-              className="bg-beige text-dark px-8 py-3 rounded-lg font-semibold hover:bg-beige/90 transition-colors shadow-lg hover:shadow-xl"
-            >
+            <Button asChild variant="default" size="lg">
+              <Link href="/products/new">Add New Product</Link>
+            </Button>
+            <Button onClick={resetFilters} variant="secondary" size="lg">
               Reset Filters
-            </button>
+            </Button>
           </div>
         </div>
 
         {/* Search and Filter Section */}
         <div className="mb-8 space-y-4">
           <SearchBar onSearch={handleSearch} isLoading={isLoading} />
-          <CategoryFilter 
-            categories={categories} 
+          <CategoryFilter
+            categories={categories}
             selectedCategory={selectedCategory}
             onCategoryChange={handleCategoryFilter}
           />
@@ -111,7 +106,9 @@ export default function Home() {
                 Searching...
               </span>
             ) : (
-              `Showing ${products.length} product${products.length !== 1 ? 's' : ''}`
+              `Showing ${products.length} product${
+                products.length !== 1 ? "s" : ""
+              }`
             )}
           </p>
         </div>
@@ -120,16 +117,15 @@ export default function Home() {
         {products.length === 0 && !isLoading ? (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-2xl font-semibold text-gray-600 mb-2">No products found</h3>
+            <h3 className="text-2xl font-semibold text-gray-600 mb-2">
+              No products found
+            </h3>
             <p className="text-gray-500 mb-6">
               Try adjusting your search terms or category filter
             </p>
-            <button 
-              onClick={resetFilters}
-              className="bg-green text-light px-6 py-2 rounded-lg hover:bg-green/90 transition-colors"
-            >
+            <Button onClick={resetFilters} variant="default" size="sm">
               Clear Filters
-            </button>
+            </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

@@ -3,6 +3,9 @@ import "./globals.css";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import QueryProvider from "./components/QueryProvider.jsx";
+import ReduxProvider from "./components/ReduxProvider.jsx";
+import AuthInitializer from "./components/AuthInitializer.jsx";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,13 +28,15 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <QueryProvider>
-          <Header />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </QueryProvider>
+        <ReduxProvider>
+          <QueryProvider>
+            <AuthInitializer />
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <Toaster />
+          </QueryProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
